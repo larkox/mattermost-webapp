@@ -2,22 +2,28 @@
 // See LICENSE.txt for license information.
 
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import {bindActionCreators, Dispatch} from 'redux';
+
+import {Post} from 'mattermost-redux/types/posts';
 
 import {toggleEmbedVisibility} from 'actions/post_actions';
-
 import {isEmbedVisible} from 'selectors/posts';
+import {GlobalState} from 'types/store';
 
 import PostBodyAdditionalContent from './post_body_additional_content';
 
-function mapStateToProps(state, ownProps) {
+type OwnProps = {
+    post: Post;
+}
+
+function mapStateToProps(state: GlobalState, ownProps: OwnProps) {
     return {
         isEmbedVisible: isEmbedVisible(state, ownProps.post.id),
         pluginPostWillRenderEmbedComponents: state.plugins.components.PostWillRenderEmbedComponent,
     };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
     return {
         actions: bindActionCreators({
             toggleEmbedVisibility,

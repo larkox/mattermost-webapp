@@ -5,6 +5,7 @@ import React from 'react';
 
 import {ClientPluginManifest} from 'mattermost-redux/types/plugins';
 import {IDMappedObjects} from 'mattermost-redux/types/utilities';
+import {PostEmbed} from 'mattermost-redux/types/posts';
 
 export type PluginsState = {
     plugins: IDMappedObjects<ClientPluginManifest>;
@@ -31,7 +32,9 @@ export type PluginsState = {
 export type PluginComponent = {
     id: string;
     pluginId: string;
-    component: React.Component;
+    component: React.ComponentType<any>;
+    match?: (embed: PostEmbed) => boolean;
+    toggleable?: boolean;
 };
 
 export type PostPluginComponent = {
